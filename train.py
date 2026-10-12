@@ -12,6 +12,12 @@ def multiply_scalar(k, vec1):
     for i in range(len(vec1)):
         vec2.append(k * vec1[i])
     return vec2
+def vector_norm(vec):
+    quad_norm = 0.0
+    for i in range(len(vec)):
+        quad_norm += (vec[i])**2.0
+    return math.sqrt(quad_norm)
+
 # load dataset
 with open('dataset.txt', 'r') as file:
     data = file.read()
@@ -31,6 +37,7 @@ model = nn.NeuralNetwork(mode)
 epochs = int(input('Epochs: '))
 lr = float(input('Learning Rate: '))
 M = len(X)
+hist = ""
 for iter in range(1, epochs + 1):
     # avoid gradient accumulation per epochs
     loss = 0.0
@@ -54,7 +61,13 @@ for iter in range(1, epochs + 1):
         grad_bias1 = add_vector(grad_bias1, multiply_scalar((2.0/M)*(y_hat - y[data]), buf_grad_b1))
         grad_bias2 = add_vector(grad_bias2, multiply_scalar((2.0/M)*(y_hat - y[data]), buf_grad_b2))
 
-    print(f'Epoch {iter}/{epochs} --> loss: {loss} - mae: {mae}')
+    norm_grad_w1 = vector_norm(grad_w1)
+    norm_grad_w2 = vector_norm(grad_w2)
+    norm_grad_b1 = vector_norm(grad_bias1)
+    norm_grad_b2 = vector_norm(grad_bias2)
+    rep = f'Epoch {iter}/{epochs} -> loss: {loss:.4f} - mae: {mae:.4f} - norm_grad_w1: {norm_grad_w1:.4f} - norm_grad_w2: {norm_grad_w2:.4f} - norm_grad_b1: {norm_grad_b1:.4f} - norm_grad_b2: {norm_grad_b2:.4f}'
+    print(rep)
+    hist += rep + '\n'
     # backpropagation
     model.weights1 = add_vector(model.weights1, multiply_scalar(-lr, grad_w1))
     model.weights2 = add_vector(model.weights2, multiply_scalar(-lr, grad_w2))
@@ -64,3 +77,5 @@ for iter in range(1, epochs + 1):
 # save model
 joblib.dump(model, 'model.pkl')
 print('Done!')
+with open('train_history.txt', 'w') as file:
+    file.write(hist)

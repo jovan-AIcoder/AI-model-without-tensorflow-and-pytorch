@@ -8,7 +8,7 @@ In this repo, I've made an AI architecture like usual, but in this time, I made 
 The only Python libraries that were installed on the virtual environment are `joblib` and `matplotlib`. 
 So, I made the algorithm purely lies on standard Python functions and syntax, and I also use standard Python libraries like `math` and `random`. 
 I made the Glorot Initialization, forward pass, backpropagation, Vanilla GD, and so on manually. 
-And it works! And my brain know, what's inside the AI algorithms.
+And it works! And now my brain know, what's inside the AI algorithms.
 
 #### 🧠 Model Specs
 - **Architecture:** 1-15-1 Shallow Feedforward
@@ -36,13 +36,11 @@ And it works! And my brain know, what's inside the AI algorithms.
   - `epochs = 10,000`
 
 #### 📈 Results
-- **Run 1 (lr=1e-4):** `loss: 0.0126 - mae: 0.088`
-- **Run 2 (lr=1e-3):** `loss: 0.0077 - mae: 0.046` 
-
+See on `train_history.txt`
 
 #### 🛠️ Tech Stack
 - **Core AI:** 100% Pure Python
 - **Helpers only:** `matplotlib` (plotting), `joblib` (save/load)
 - **Files:** `datagen.py`, `neural.py`, `train.py`, `plot.py`
 
-> Built from paper to code. No `pip install AI`.
+> Built from paper to code. No `pip install AI frameworks` and no AI agents used on writing code. This is purely my brain's deep work.
